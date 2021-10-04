@@ -1,5 +1,5 @@
 <?php
-    class Usuarios extends Controllers
+    class Clientes extends Controllers
     {
         public function __construct()
         {
@@ -12,12 +12,12 @@
         }
         public function Listar()
         {
-            $data = $this->model->selectUsuarios();
+            $data = $this->model->selectClientes();
             $this->views->getView($this, "Listar", $data, "");
         }
         public function nuevo()
         {
-            $data = $this->model->selectUsuarios();         
+            $data = $this->model->selectClientes();         
             $this->views->getView($this, "Nuevo", $data, "");
         }
         public function insertar()
@@ -25,15 +25,16 @@
             $dni = $_POST['dni'];
             $nombre = $_POST['nombre'];
             $apellidos = $_POST['apellidos'];
+            $telefono = $_POST['telefono'];
+            $direccion = $_POST['direccion'];
             $contrasena = $_POST['contrasena'];
-            $rol = $_POST['rol'];
             $confirmar = $_POST['confirmar'];
             $hash = hash("SHA256", $contrasena);
             if ($contrasena != $confirmar) 
             {
                 $alert = array('mensaje' => 'no');
             } else {
-                $insert = $this->model->insertarUsuarios($dni, $nombre, $apellidos, $hash, $rol);
+                $insert = $this->model->insertarUsuarios($dni, $nombre, $apellidos, $telefono, $direccion, $hash, $rol);
                 if ($insert > 0) 
                 {
                     $alert = 'registrado';

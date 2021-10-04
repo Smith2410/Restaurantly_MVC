@@ -9,15 +9,16 @@
                     {   ?>
                         <li><a href="<?php echo base_url(); ?>Admin/listar">Inicio</a></li>
                         <li><a href="<?php echo base_url(); ?>Platillos/all">Platillos</a></li>
-                        <?php 
-                        if ($_SESSION['rol']=="Administrador")
-                        {   ?>
-                            <li><a href="<?php echo base_url(); ?>Admin/administracion">Administracion</a></li>
-                            <?php 
-                        }elseif ($_SESSION['rol']=="Repartidor")
-                        {   ?>
-                            <li><a href="<?php echo base_url(); ?>Admin/administracion">Administracion</a></li>
-                            <?php 
+                        <?php
+                        if ($_SESSION['type']=="usuario") {
+                            if ($_SESSION['rol']=="Administrador")
+                            {   ?>
+                                <li><a href="<?php echo base_url(); ?>Admin/administracion">Administracion</a></li>
+                                <?php 
+                            }else{   ?>
+                                <li><a href="<?php echo base_url(); ?>Admin/administracion">Administracion</a></li>
+                                <?php 
+                            }
                         }else{
                             ?>
                             <li><a href="<?php echo base_url(); ?>Pedidos/listar">Pedidos</a></li>
@@ -32,7 +33,17 @@
                         <li><a href="<?php echo base_url(); ?>Home/login">Iniciar sesion</a></li>
                         <?php 
                     }
-                 ?>                
+                 ?>
+                <li>
+                    <form action="<?php echo base_url(); ?>Home/buscar" method="GET">
+                        <div class="input-group">
+                            <input type="text" id="search" class="form-control" name="search" required="" placeholder="Buscar">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-warning" type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </li>             
             </ul>
         </nav>
 

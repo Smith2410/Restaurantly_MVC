@@ -1,10 +1,10 @@
 <?php
     /** URL inicial del sistema **/
-    const BASE_URL = "http://localhost/Restaurantly_MVC/";
+    const BASE_URL = "http://localhost/Restaurantly_MVC0/";
 
     /** Base de datos **/
     const HOST = "localhost";
-    const BD = "restaurantly";
+    const BD = "restaurantlys";
     const DB_USER = "root";
     const PASS = "";
 

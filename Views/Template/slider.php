@@ -6,8 +6,13 @@
                 <h2>Pollos y parrillas</h2>
 
                 <div class="btns">
-                    <a href="<?php echo base_url(); ?>Home/login" class="btn-menu animated fadeInUp scrollto">Iniciar sesion</a>
-                    <a href="<?php echo base_url(); ?>assets/pdf/Carta.pdf" class="btn-book animated fadeInUp scrollto" target="_blank">Descarga nuestra carta</a>
+                    <?php if (!empty($_SESSION['activo']))
+                    { ?>
+                        <a href="<?php echo base_url(); ?>Platillos/all" class="btn-book animated fadeInUp scrollto">Platillos</a>
+                    <?php }else{ ?>
+                        <a href="<?php echo base_url(); ?>Home/login" class="btn-menu animated fadeInUp scrollto">Iniciar sesion</a>
+                    <?php } ?>
+                        <a href="<?php echo base_url(); ?>assets/pdf/Carta.pdf" class="btn-book animated fadeInUp scrollto" target="_blank">Descarga nuestra carta</a>
                 </div>
             </div>
         </div>

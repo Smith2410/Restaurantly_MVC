@@ -50,5 +50,34 @@
             }
             return $res;
         }
+        
+        public function buscarPlatillo(string $search)
+        {
+            $this->search = $search;
+            $sql = "SELECT * FROM platillos WHERE nombre LIKE '%{$this->search}%'";
+            $res = $this->select($sql);
+            if (empty($res)) 
+            {
+                $res = 0;
+            }
+            return $res;
+        }
+
+                public function selectUsuario(string $dni, string $contrasena)
+        {
+            $this->dni = $dni;
+            $this->contrasena = $contrasena;
+            $sql = "SELECT * FROM usuarios WHERE dni = '{$this->dni}' AND contrasena = '{$this->contrasena}'";
+            $res = $this->select($sql);
+            return $res;
+        }
+        public function selectCliente(string $dni, string $contrasena)
+        {
+            $this->dni = $dni;
+            $this->contrasena = $contrasena;
+            $sql = "SELECT * FROM clientes WHERE dni = '{$this->dni}' AND contrasena = '{$this->contrasena}'";
+            $res = $this->select($sql);
+            return $res;
+        }
     }
 ?>

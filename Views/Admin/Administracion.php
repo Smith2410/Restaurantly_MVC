@@ -17,12 +17,11 @@
                     </div>
                 </a>
             </div>
-
             <div class="col-lg-3 mt-4 mt-lg-0">
-                <a href="<?php echo base_url(); ?>Cocineros/listar">
-                    <div class="box" data-aos="zoom-in" data-aos-delay="200">
-                        <span>02</span>
-                        <h4>Cocineros</h4>
+                <a href="<?php echo base_url(); ?>Usuarios/listar">
+                    <div class="box" data-aos="zoom-in" data-aos-delay="300">
+                        <span>03</span>
+                        <h4>Usuarios</h4>
                     </div>
                 </a>
             </div>
@@ -59,6 +58,14 @@
                     <div class="box" data-aos="zoom-in" data-aos-delay="300">
                         <span>05</span>
                         <h4>Configuracion</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 mt-4 mt-lg-0">
+                <a href="<?php echo base_url(); ?>Clientes/listar">
+                    <div class="box" data-aos="zoom-in" data-aos-delay="300">
+                        <span>05</span>
+                        <h4>Clientes</h4>
                     </div>
                 </a>
             </div>

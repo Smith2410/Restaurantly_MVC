@@ -1,36 +1,37 @@
 <?php
-    class UsuariosModel extends Mysql{
+    class ClientesModel extends Mysql{
         public $id, $clave, $nombre, $usuario, $correo, $rol;
         public function __construct()
         {
             parent::__construct();
         }
-        public function selectUsuarios()
+        public function selectClientes()
         {
-            $sql = "SELECT * FROM usuarios WHERE estado = 1";
+            $sql = "SELECT * FROM clientes WHERE estado = 1";
             $res = $this->select_all($sql);
             return $res;
         }
         public function selectInactivos()
         {
-            $sql = "SELECT * FROM usuarios WHERE estado = 0";
+            $sql = "SELECT * FROM clientes WHERE estado = 0";
             $res = $this->select_all($sql);
             return $res;
         }
-        public function insertarUsuarios(int $dni, string $nombre, string $apellidos, string $contrasena, string $rol)
+        public function insertarUsuarios(int $dni, string $nombre, string $apellidos, int $telefono, string $direccion, string $contrasena)
         {
             $return = "";
             $this->dni = $dni;
             $this->nombre = $nombre;
             $this->apellidos = $apellidos;
+            $this->telefono = $telefono;
+            $this->direccion = $direccion;
             $this->contrasena = $contrasena;
-            $this->rol = $rol;
-            $sql = "SELECT * FROM usuarios WHERE dni = '{$this->dni}'";
+            $sql = "SELECT * FROM clientes WHERE dni = '{$this->dni}'";
             $result = $this->select_all($sql);
             if (empty($result)) 
             {
-                $query = "INSERT INTO usuarios(dni, nombre, apellidos, contrasena, rol) VALUES (?,?,?,?,?)";
-                $data = array($this->dni, $this->nombre, $this->apellidos, $this->contrasena, $this->rol);
+                $query = "INSERT INTO clientes(dni, nombre, apellidos, telefono, direccion, contrasena) VALUES (?,?,?,?,?,?)";
+                $data = array($this->dni, $this->nombre, $this->apellidos, $this->telefono, $this->direccion, $this->contrasena);
                 $resul = $this->insert($query, $data);
                 $return = $resul;
             }else {
