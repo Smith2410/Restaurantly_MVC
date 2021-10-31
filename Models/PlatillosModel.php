@@ -1,6 +1,6 @@
 <?php
     class PlatillosModel extends Mysql{
-        public $id, $CodigoProd, $NombreProd, $Categoria_id, $Precio, $Descuento, $Descripcion, $Imagen, $Imagen_FinalName;
+        public $codigo, $nombre, $precio, $descripcion, $imagen, $categoria_id;
         public function __construct()
         {
             parent::__construct();
@@ -45,13 +45,12 @@
             return $res;
         }
 
-        public function insertarPlatillos(string $codigo, string $nombre, int $precio, int $descuento, string $descripcion, string $img_FinalName, int $categoria_id)
+        public function insertarPlatillos(string $codigo, string $nombre, int $precio, string $descripcion, string $img_FinalName, int $categoria_id)
         {
             $return = "";
             $this->codigo = $codigo;
             $this->nombre = $nombre;
             $this->precio = $precio;
-            $this->descuento = $descuento;
             $this->descripcion = $descripcion;
             $this->img_FinalName = $img_FinalName;
             $this->categoria_id = $categoria_id;
@@ -60,8 +59,8 @@
             $result = $this->select_all($sql);
             if (empty($result)) 
             {
-                $query = "INSERT INTO `platillos`(`codigo`, `nombre`, `precio`, `descuento`, `descripcion`, `imagen`, `categoria_id`) VALUES (?,?,?,?,?,?,?,?)";
-                $data = array($this->codigo, $this->nombre, $this->precio, $this->descuento, $this->descripcion, $this->img_FinalName, $this->categoria_id);
+                $query = "INSERT INTO `platillos`(`codigo`, `nombre`, `precio`, `descripcion`, `imagen`, `categoria_id`) VALUES (?,?,?,?,?,?)";
+                $data = array($this->codigo, $this->nombre, $this->precio, $this->descripcion, $this->img_FinalName, $this->categoria_id);
                 $resul = $this->insert($query, $data);
                 $return = $resul;
             }else {
@@ -82,20 +81,19 @@
             return $res;
         }
         
-        public function actualizarPlatillos(string $nombre, int $precio, int $descuento, string $descripcion, string $img_FinalName, int $categoria_id, string $codigo)
+        public function actualizarPlatillos(string $nombre, int $precio, string $descripcion, string $img_FinalName, int $categoria_id, string $codigo)
         {
             $return = "";
             
             $this->nombre = $nombre;
             $this->precio = $precio;
-            $this->descuento = $descuento;
             $this->descripcion = $descripcion;
             $this->img_FinalName = $img_FinalName;
             $this->categoria_id = $categoria_id;
             $this->codigo = $codigo;
 
-            $query = "UPDATE platillos SET nombre=?, precio=?, descuento=?, descripcion=?, imagen=?, categoria_id=? WHERE codigo=?";
-            $data = array($this->nombre, $this->precio, $this->descuento, $this->descripcion, $this->img_FinalName, $this->categoria_id, $this->codigo);
+            $query = "UPDATE platillos SET nombre=?, precio=?, descripcion=?, imagen=?, categoria_id=? WHERE codigo=?";
+            $data = array($this->nombre, $this->precio, $this->descripcion, $this->img_FinalName, $this->categoria_id, $this->codigo);
             $resul = $this->update($query, $data);
             $return = $resul;
             return $return;

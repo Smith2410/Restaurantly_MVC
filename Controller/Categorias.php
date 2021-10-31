@@ -4,10 +4,6 @@
         public function __construct()
         {
             session_start();
-            if (empty($_SESSION['activo'])) 
-            {
-                header("location: " . base_url());
-            }
             parent::__construct();
         }
         public function listar()
@@ -20,12 +16,6 @@
         {
             $data = $this->model->selectCategoriasInactivos();
             $this->views->getView($this, "Inactivos", $data, "");
-        }
-
-        public function nuevo()
-        {
-            $data = $this->model->selectCategorias();         
-            $this->views->getView($this, "Nuevo", $data, "");
         }
         public function insertar()
         {

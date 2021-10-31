@@ -28,5 +28,15 @@
   padding-top: 100px;
 }
 .dark{
-  background-color: black;
+  background-color: #1a1814;
+}
+
+.cardBox{
+  width: 200px;
+  height: 90px;
+  background-color: #cda45e;
+  border-radius: 10px;
+  color: #1a1814;
+  padding: 10px;
+  margin: 5px;
 }

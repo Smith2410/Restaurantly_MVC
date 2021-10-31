@@ -52,35 +52,14 @@
     <!-- <div id="preloader"></div> -->
     <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
 
-    <!-- Modal cerrar sesion -->
-    <div id="logout" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content dark">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="my-modal-title">Cerrar sesion</h5>
-                    <button class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Esta seguro que desea salir?</p>
-                </div>
-                <div class="modal-footer ml-auto">
-                    <a href="<?php echo base_url(); ?>Usuarios/salir" class="btn btn-danger">Si</a>
-                    <button class="btn btn-primary" data-dismiss="modal" type="button">No</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php modals(); ?>
 
     <!-- No borrar -->
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/Chart.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/funciones.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/all.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/front.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/sweetalert2.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>

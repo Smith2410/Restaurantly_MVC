@@ -62,58 +62,50 @@
             $return = $resul;
             return $return;
         }
-        public function eliminarUsuarios(int $id)
+        public function eliminarUsuarios(int $dni)
         {
             $return = "";
-            $this->id = $id;
-            $query = "UPDATE usuarios SET estado = 0 WHERE id=?";
-            $data = array($this->id);
+            $this->dni = $dni;
+            $query = "UPDATE usuarios SET estado = 0 WHERE dni=?";
+            $data = array($this->dni);
             $resul = $this->update($query, $data);
             $return = $resul;
             return $return;
         }
-        public function selectUsuario(string $dni, string $contrasena)
-        {
-            $this->dni = $dni;
-            $this->contrasena = $contrasena;
-            $sql = "SELECT * FROM usuarios WHERE dni = '{$this->dni}' AND contrasena = '{$this->contrasena}'";
-            $res = $this->select($sql);
-            return $res;
-        }
-        public function selectCliente(string $dni, string $contrasena)
-        {
-            $this->dni = $dni;
-            $this->contrasena = $contrasena;
-            $sql = "SELECT * FROM clientes WHERE dni = '{$this->dni}' AND contrasena = '{$this->contrasena}'";
-            $res = $this->select($sql);
-            return $res;
-        }
-        
-        public function reingresarUsuarios(int $id)
+                
+        public function reingresarUsuarios(int $dni)
         {
             $return = "";
-            $this->id = $id;
-            $query = "UPDATE usuarios SET estado = 1 WHERE id=?";
-            $data = array($this->id);
+            $this->dni = $dni;
+            $query = "UPDATE usuarios SET estado = 1 WHERE dni=?";
+            $data = array($this->dni);
             $resul = $this->update($query, $data);
             $return = $resul;
             return $return;
         }
-        public function cambiarPass(string $clave)
+
+        public function editarContrasena(int $dni)
         {
-            $this->clave = $clave;
-            $query = "SELECT * FROM usuarios WHERE clave = '$clave'";
-            $resul = $this->select($query);
-            return $resul;
+            $this->dni = $dni;
+            $sql = "SELECT * FROM usuarios WHERE dni = '{$this->dni}'";
+            $res = $this->select($sql);
+            if (empty($res)) 
+            {
+                $res = 0;
+            }
+            return $res;
         }
-        public function cambiarContra(string $clave, int $id)
+        public function actualizarContrasena(string $contrasena, int $dni)
         {
-            $this->clave = $clave;
-            $this->id = $id;
-            $query = "UPDATE usuarios SET clave = ? WHERE id = ?";
-            $data = array($this->clave, $this->id);
+            $return = "";
+            $this->contrasena = $contrasena;
+            $this->dni = $dni;
+
+            $query = "UPDATE usuarios SET contrasena=? WHERE dni=?";
+            $data = array($this->contrasena, $this->dni);
             $resul = $this->update($query, $data);
-            return $resul;
+            $return = $resul;
+            return $return;
         }
     }
 ?>

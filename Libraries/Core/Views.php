@@ -1,9 +1,9 @@
 <?php
     class Views{
-        function getView($controller, $view, $data="", $categoria="", $platillo="",$alert="", $config = "", $cliente = "", $cbanco="", $usuario="")
+        function getView($controller, $view, $data="", $categoria="", $platillo="", $pedido="", $alert="", $config = "", $cliente = "", $usuario="")
         {
             $controller = get_class($controller);
-            if ($controller == "Index") 
+            if ($controller == "Home") 
             {
                 $view = "Views/" . $view.".php";
             }else{

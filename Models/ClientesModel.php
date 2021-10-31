@@ -1,6 +1,6 @@
 <?php
     class ClientesModel extends Mysql{
-        public $id, $clave, $nombre, $usuario, $correo, $rol;
+        public $id, $nombre, $apellidos, $telefono, $direccion, $contrasena;
         public function __construct()
         {
             parent::__construct();
@@ -17,7 +17,7 @@
             $res = $this->select_all($sql);
             return $res;
         }
-        public function insertarUsuarios(int $dni, string $nombre, string $apellidos, int $telefono, string $direccion, string $contrasena)
+        public function insertarClientes(int $dni, string $nombre, string $apellidos, int $telefono, string $direccion, string $contrasena)
         {
             $return = "";
             $this->dni = $dni;
@@ -39,10 +39,10 @@
             }
             return $return;
         }
-        public function editarUsuarios(int $dni)
+        public function editarClientes(int $dni)
         {
             $this->dni = $dni;
-            $sql = "SELECT * FROM usuarios WHERE dni = '{$this->dni}'";
+            $sql = "SELECT * FROM clientes WHERE dni = '{$this->dni}'";
             $res = $this->select($sql);
             if (empty($res)) 
             {
@@ -50,71 +50,86 @@
             }
             return $res;
         }
-        public function actualizarUsuarios(string $nombre, string $apellidos, string $rol, int $dni)
+        public function actualizarClientes(string $nombre, string $apellidos, int $telefono, string $direccion, int $dni)
         {
             $return = "";
             $this->nombre = $nombre;
             $this->apellidos = $apellidos;
-            $this->rol = $rol;
+            $this->telefono = $telefono;
+            $this->direccion = $direccion;
             $this->dni = $dni;
-            $query = "UPDATE usuarios SET nombre=?, apellidos=?, rol=? WHERE dni=?";
-            $data = array($this->nombre, $this->apellidos, $this->rol, $this->dni);
+            $query = "UPDATE clientes SET nombre=?, apellidos=?, telefono=?, direccion=? WHERE dni=?";
+            $data = array($this->nombre, $this->apellidos, $this->telefono, $this->direccion, $this->dni);
             $resul = $this->update($query, $data);
             $return = $resul;
             return $return;
         }
-        public function eliminarUsuarios(int $id)
+        public function eliminarClientes(int $dni)
         {
             $return = "";
-            $this->id = $id;
-            $query = "UPDATE usuarios SET estado = 0 WHERE id=?";
-            $data = array($this->id);
+            $this->dni = $dni;
+            $query = "UPDATE clientes SET estado = 0 WHERE dni=?";
+            $data = array($this->dni);
             $resul = $this->update($query, $data);
             $return = $resul;
             return $return;
-        }
-        public function selectUsuario(string $dni, string $contrasena)
-        {
-            $this->dni = $dni;
-            $this->contrasena = $contrasena;
-            $sql = "SELECT * FROM usuarios WHERE dni = '{$this->dni}' AND contrasena = '{$this->contrasena}'";
-            $res = $this->select($sql);
-            return $res;
-        }
-        public function selectCliente(string $dni, string $contrasena)
-        {
-            $this->dni = $dni;
-            $this->contrasena = $contrasena;
-            $sql = "SELECT * FROM clientes WHERE dni = '{$this->dni}' AND contrasena = '{$this->contrasena}'";
-            $res = $this->select($sql);
-            return $res;
         }
         
-        public function reingresarUsuarios(int $id)
+        public function reingresarClientes(int $dni)
         {
             $return = "";
-            $this->id = $id;
-            $query = "UPDATE usuarios SET estado = 1 WHERE id=?";
-            $data = array($this->id);
+            $this->dni = $dni;
+            $query = "UPDATE clientes SET estado = 1 WHERE dni=?";
+            $data = array($this->dni);
             $resul = $this->update($query, $data);
             $return = $resul;
             return $return;
         }
-        public function cambiarPass(string $clave)
+
+        public function editarContrasena(int $dni)
         {
-            $this->clave = $clave;
-            $query = "SELECT * FROM usuarios WHERE clave = '$clave'";
-            $resul = $this->select($query);
-            return $resul;
+            $this->dni = $dni;
+            $sql = "SELECT * FROM clientes WHERE dni = '{$this->dni}'";
+            $res = $this->select($sql);
+            if (empty($res)) 
+            {
+                $res = 0;
+            }
+            return $res;
         }
-        public function cambiarContra(string $clave, int $id)
+        public function actualizarContrasena(string $contrasena, int $dni)
         {
-            $this->clave = $clave;
-            $this->id = $id;
-            $query = "UPDATE usuarios SET clave = ? WHERE id = ?";
-            $data = array($this->clave, $this->id);
+            $return = "";
+            $this->contrasena = $contrasena;
+            $this->dni = $dni;
+            
+            $query = "UPDATE clientes SET contrasena=? WHERE dni=?";
+            $data = array($this->contrasena, $this->dni);
             $resul = $this->update($query, $data);
-            return $resul;
+            $return = $resul;
+            return $return;
+        }
+
+        public function recuperarContrasena(string $contrasena, int $telefono, int $dni)
+        {
+            $return = "";
+            $this->contrasena = $contrasena;
+            $this->telefono = $telefono;
+            $this->dni = $dni;
+
+            $sql = "SELECT * FROM clientes WHERE dni = '{$this->dni}' AND telefono = '{$this->telefono}'";
+            $result = $this->select_all($sql);
+            if (!empty($result)) 
+            {
+
+                $query = "UPDATE clientes SET contrasena=? WHERE dni=?";
+                $data = array($this->contrasena, $this->dni);
+                $resul = $this->update($query, $data);
+                $return = $resul;
+            }else {
+                $return = "error";
+            }
+            return $return;
         }
     }
 ?>

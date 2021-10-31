@@ -15,19 +15,19 @@
     <link href="<?php echo base_url(); ?>assets/img/logo.png" rel="icon">
     <link href="<?php echo base_url(); ?>assets/img/logo.png" rel="apple-touch-icon">
 
-    <!-- Vendor CSS Files -->
+    <!-- CSS -->
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
-
     <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/owl.carousel.min.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/venobox.min.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/aos.css" rel="stylesheet">
 
+    <!-- Iconos -->
+    <link href="<?php echo base_url(); ?>assets/css/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/css/icofont/icofont.min.css" rel="stylesheet">
+
     <!-- Template Main CSS File -->
     <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
-
-    <link href="<?php echo base_url(); ?>assets/css/all.min.css" rel="stylesheet" type="text/css">
-
     <link href="<?php echo base_url(); ?>assets/css/add.css" rel="stylesheet" type="text/css">
 
 </head>

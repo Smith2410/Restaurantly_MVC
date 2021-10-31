@@ -4,26 +4,24 @@
         public function __construct()
         {
             session_start();
-            if (empty($_SESSION['activo'])) 
-            {
-                header("location: " . base_url());
-            }
             parent::__construct();
         }
-        public function Listar()
+        public function listar()
         {
             $data = $this->model->selectCategorias();
             $this->views->getView($this, "Listar", $data, "");
         }
-        public function nuevo()
+
+        public function inactivos()
         {
-            $data = $this->model->selectCategorias();         
-            $this->views->getView($this, "Nuevo", $data, "");
+            $data = $this->model->selectCategoriasInactivos();
+            $this->views->getView($this, "Inactivos", $data, "");
         }
+
         public function insertar()
         {
-            $Categoria = $_POST['Categoria'];
-            $insert = $this->model->insertarCategorias($Categoria);
+            $categoria = $_POST['categoria'];
+            $insert = $this->model->insertarCategorias($categoria);
             if ($insert > 0) 
             {
                 $alert = 'registrado';
@@ -50,8 +48,8 @@
         public function actualizar()
         {
             $id = $_POST['id'];
-            $Categoria = $_POST['Categoria'];
-            $actualizar = $this->model->actualizarCategorias($Categoria, $id);
+            $categoria = $_POST['categoria'];
+            $actualizar = $this->model->actualizarCategorias($categoria, $id);
             if ($actualizar == 1) 
             {
                 $alert =  'modificado';
@@ -62,15 +60,38 @@
             die();
         }
 
-        public function ver()
+        public function eliminar()
         {
             $id = $_GET['id'];
-            $data = $this->model->verDetalles($id);
+            $eliminar = $this->model->eliminarCategorias($id);
+            $data = $this->model->selectCategorias();
+            header('location: ' . base_url() . 'Categorias/Listar');
+            die();
+        }
+        public function restaurar()
+        {
+            $id = $_GET['id'];
+            $this->model->restaurarCategorias($id);
+            $data = $this->model->selectCategorias();
+            header('location: ' . base_url() . 'Categorias/Listar');
+            die();
+        }
+
+        public function ver()
+        {
+            $numPedido = $_GET['numPedido'];
+            $data = $this->model->verDetalles($numPedido);
+            $detalle = $this->model->selectDetalles();
+            $platillo = $this->model->selectPlatillos();
+            $pedido = $this->model->selectPedidos();
+
             if ($data == 0) {
                 $this->Listar();
             } else {
-                $this->views->getView($this, "Ver", $data);
+                $this->views->getView($this, "Ver", $data, $detalle, $platillo, $pedido);
             }
         }
+
+
     }
 ?>

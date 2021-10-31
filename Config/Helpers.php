@@ -33,10 +33,24 @@
         require_once($VistaS);
     }
 
+    /** slider **/
+    function sideBar($data="")
+    {
+        $VistaSB = "Views/Template/sideBar.php";
+        require_once($VistaSB);
+    }
+
     /** footer **/
     function footer($data="")
     {
         $VistaF = "Views/Template/footer.php";
         require_once($VistaF);
+    }
+
+    /** modals **/
+    function modals($data="")
+    {
+        $VistaM = "Views/Template/modals.php";
+        require_once($VistaM);
     }
 ?>

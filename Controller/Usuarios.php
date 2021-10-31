@@ -6,7 +6,7 @@
             session_start();
             if (empty($_SESSION['activo'])) 
             {
-                header("location: ".base_url());
+                header("location: " . base_url());
             }
             parent::__construct();
         }
@@ -66,6 +66,7 @@
             $nombre = $_POST['nombre'];
             $apellidos = $_POST['apellidos'];
             $rol = $_POST['rol'];
+
             $actualizar = $this->model->actualizarUsuarios($nombre, $apellidos, $rol, $dni);
             if ($actualizar == 1) 
             {
@@ -79,8 +80,8 @@
         }
         public function eliminar()
         {
-            $id = $_GET['id'];
-            $eliminar = $this->model->eliminarUsuarios($id);
+            $dni = $_GET['dni'];
+            $eliminar = $this->model->eliminarUsuarios($dni);
             $data = $this->model->selectUsuarios();
             header("location: " . base_url() . "Usuarios/Listar");
             die();
@@ -93,65 +94,47 @@
         }
         public function reingresar()
         {
-            $id = $_GET['id'];
-            $this->model->reingresarUsuarios($id);
+            $dni = $_GET['dni'];
+            $this->model->reingresarUsuarios($dni);
             $this->model->selectUsuarios();
             header('location: ' . base_url() . 'Usuarios/Listar');
             //$this->views->getView($this, "Listar", $data);
             die();
         }
-        public function login()
-        {
-            if (!empty($_POST['dni']) || !empty($_POST['contrasena'])) 
-            {
-                $dni = $_POST['dni'];
-                $opcion = $_POST['optionsRadios'];
-                $contrasena = $_POST['contrasena'];
-                $hash = hash("SHA256", $contrasena);
 
-                if ($opcion == "option2") {
-                    $data = $this->model->selectUsuario($dni, $hash);
-                    if (!empty($data)) {
-                        $_SESSION['dni'] = $data['dni'];
-                        $_SESSION['nombre'] = $data['nombre'];
-                        $_SESSION['apellidos'] = $data['apellidos'];
-                        $_SESSION['rol'] = $data['rol'];
-                        $_SESSION['type'] = "usuario";
-                        $_SESSION['activo'] = true;
-                        header('location: '.base_url(). 'Admin/Listar');
-                    } else {
-                        $error = 0;
-                        header("location: ".base_url().'Home/login'."?msg=$error");
-                    }
-                }
-                if ($opcion == "option1") {
-                    $data = $this->model->selectCliente($dni, $hash);
-                    if (!empty($data)) {
-                        $_SESSION['dni'] = $data['dni'];
-                        $_SESSION['nombre'] = $data['nombre'];
-                        $_SESSION['apellidos'] = $data['apellidos'];
-                        $_SESSION['type'] = "cliente";
-                        $_SESSION['activo'] = true;
-                        header('location: '.base_url(). 'Admin/Listar');
-                    } else {
-                        $error = 0;
-                        header("location: ".base_url().'Home/login'."?msg=$error");
-                    }
-                }
-            }
-        }
         public function cambiar()
         {
-            $actual = $_POST['claves'];
-            $hash = hash("SHA256", $actual['actual']);
-            $nueva = hash("SHA256", $actual['nueva']);
-            $data = $this->model->cambiarPass($hash);
-            if ($data != null) 
+            $dni = $_GET['dni'];
+            $data = $this->model->editarContrasena($dni);
+            if ($data == 0) 
             {
-                echo 1;
-                $this->model->cambiarContra($nueva, $data['id']);
-            }  
+                $this->Listar();
+            } else {
+                $this->views->getView($this, "Password", $data);
+            }
         }
+        public function actualizarContrasena()
+        {
+            $dni = $_POST['dni'];
+
+            $actual = $_POST['actual'];
+            $nueva = $_POST['nueva'];
+
+            $hash = hash("SHA256", $actual);
+            $contrasena = hash("SHA256", $nueva);
+
+            $actualizar = $this->model->actualizarContrasena($contrasena, $dni);
+            if ($actualizar == 1) 
+            {
+                $alert = 'modificado';
+            } else {
+                $alert =  'error';
+            }
+            $data = $this->model->selectUsuarios();
+            header("location: " . base_url() . "Usuarios/Listar?msg=$alert");
+            die();
+        }
+
         public function salir()
         {
             session_destroy();

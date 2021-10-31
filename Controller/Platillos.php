@@ -4,12 +4,9 @@
         public function __construct()
         {
             session_start();
-            if (empty($_SESSION['activo'])) 
-            {
-                header("location: " . base_url());
-            }
             parent::__construct();
         }
+
         public function listar()
         {
             $data = $this->model->selectPatillos();
@@ -41,7 +38,6 @@
             $codigo = $_POST['codigo'];
             $nombre = $_POST['nombre'];
             $precio = $_POST['precio'];
-            $descuento = $_POST['descuento'];
             $descripcion = $_POST['descripcion'];
             $categoria_id = $_POST['categoria_id'];
 
@@ -74,7 +70,7 @@
 
                     if (move_uploaded_file($_FILES['imagen']['tmp_name'], $img_dir.$img_FinalName))
                     {
-                        $insert = $this->model->insertarPlatillos($codigo, $nombre, $precio, $descuento, $descripcion, $img_FinalName, $categoria_id);
+                        $insert = $this->model->insertarPlatillos($codigo, $nombre, $precio, $descripcion, $img_FinalName, $categoria_id);
                     }else{
                         $alert = 'error';
                     }
@@ -119,7 +115,6 @@
             
             $nombre = $_POST['nombre'];
             $precio = $_POST['precio'];
-            $descuento = $_POST['descuento'];
             $descripcion = $_POST['descripcion'];
             $categoria_id = $_POST['categoria_id'];
 
@@ -165,7 +160,7 @@
             }else{
                 echo "error";
             }
-            $actualizar = $this->model->actualizarPlatillos($nombre, $precio, $descuento, $descripcion, $img_FinalName, $categoria_id, $codigo);
+            $actualizar = $this->model->actualizarPlatillos($nombre, $precio, $descripcion, $img_FinalName, $categoria_id, $codigo);
             
             if ($actualizar == 1) 
             {

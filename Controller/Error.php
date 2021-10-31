@@ -2,6 +2,7 @@
     class Errors extends Controllers{
         public function __construct()
         {
+            session_start();
             parent::__construct();
         }
         public function notFound()

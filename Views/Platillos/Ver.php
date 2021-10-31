@@ -1,4 +1,7 @@
-<?php head() ?>
+<?php 
+    
+    head();
+?>
 
 <section id="about" class="about about-padding">
     <div class="container" data-aos="fade-up">
@@ -20,7 +23,7 @@
             <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-2 content">
                 <h3><?php echo $data['nombre']; ?></h3>
                 <p>
-                    <span>s/.<?php echo ''.number_format(($data['precio']-($data['precio']*($data['descuento']/100))), 2, '.', '').'';?></span>
+                    <span>s/.<?php echo $data['precio'];?></span>
                 </p>
                 <p class="font-italic">
                     <?php echo $data['descripcion'] ?>
@@ -30,16 +33,20 @@
                 if (!empty($_SESSION['activo']))
                 {
                     ?>
-                    <form action="<?php echo base_url(); ?>Carrito/add" method="POST" class="FormCatElec" data-form="">
-                        <input type="hidden" value="<?php echo $data['codigo']; ?>" name="codigo">
+
+                    <form action="<?php echo base_url(); ?>Carrito/add" method="POST" class="" data-form="">
+                        <input type="text" value="<?php echo $data['codigo'] ?>" name="codigo" id="codigo">
+
                         <p class="text-center text-warning">Agrega la cantidad de productos que añadiras al carrito</p>
+
                         <div class="form-group">
-                            <input type="number" class="form-control" value="1" min="1" name="cantidad">
+                            <input type="number" class="form-control" value="1" min="1" name="cantidad" id="cantidad">
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-outline-warning btn-style">Añadir al carrito</button>
+                            <button class="btn btn-outline-warning" type="submit">Añadir al carrito</button>
                         </div>
                     </form>
+
                     <?php 
                 }else{
                     ?>
